@@ -2,7 +2,6 @@
 session_start();
 class Userpdo
 {
-    // __________________________________attributs_______________________________________
     private $_id;
     public $login;
     public $password;
@@ -11,9 +10,6 @@ class Userpdo
     public $lastname;
     public $bdd;
 
-    //___________________________ constructeur________________________________________
-    // Est appelé automatiquement lors de l’initialisation de votre objet.
-    // Initialise les différents attributs de votre objet.
     public function __construct()
     {
         try {
@@ -30,11 +26,8 @@ class Userpdo
         }
     }
 
-    //____________________________________ methodes_________________________________________
 
 
-    // Créée l’utilisateur en BDD. Retourne un tableau contenant l’ensembles des
-    // informations de ce même utilisateur
     public function register($login, $password, $email, $firstname, $lastname)
     {
 
@@ -43,8 +36,6 @@ class Userpdo
         $requete->execute(array("login" => $login, "password" => $password, "email" => $email, "firstname" => $firstname, "lastname" => $lastname));
     }
 
-    //  connecte l’utilisateur, et donne aux attributs 
-    //  de la classe les valeurs correspondantes à celles de l’utilisateur connecté
     public function connect($login, $password)
     {
 
@@ -70,14 +61,12 @@ class Userpdo
         return ($resultat);
     }
 
-    //  Déconnecte l’utilisateur
     public function disconnect()
     {
         session_start();
         unset($_SESSION);
         session_destroy();
     }
-    // Supprime ET déconnecte un user
     public function delete()
     {
 
@@ -87,7 +76,6 @@ class Userpdo
 
         return ($req_delete);
     }
-    //  Met à jour les attributs de l’objet, et modifie les informations en BDD
     public function update($login, $password, $email, $firstname, $lastname)
     {
 
@@ -100,7 +88,6 @@ class Userpdo
         $req_Update->execute();
     }
 
-    //  retourne un booleen permettant de savoir si un utilisateur est connecté ou non
     public function isConnected()
     {
 
@@ -112,7 +99,6 @@ class Userpdo
             return $connect;
         }
     }
-    //  Retourne un tableau contenant l’ensemble des informations de l’utilisateur 
     public function getAllInfos($login)
     {
         $requete = $this->bdd->prepare("SELECT * FROM utilisateurs WHERE login = :login ");
@@ -120,25 +106,21 @@ class Userpdo
         $result = $requete->fetch(PDO::FETCH_ASSOC);
         var_dump($result);
     }
-    //  retourne le login de l’utilisateur
     public function getLogin()
     {
         return $this->login;
     }
 
-    //  retourne l’email
     public function getEmail()
     {
         return $this->email;
     }
 
-    //  retourne le firstname
     public function getFirstname()
     {
         return $this->firstname;
     }
 
-    //  retourne le lastname
     public function getLastname()
     {
 
