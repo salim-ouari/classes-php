@@ -110,7 +110,6 @@ class User
         return $this->_lastname;
     }
 }
-
 // $user = new User();
 // $user->connect("test", "test");
 // // $user->update("test","test","test2","test2","test2");
